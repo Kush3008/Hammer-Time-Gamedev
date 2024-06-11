@@ -1,15 +1,44 @@
-<style type="text/css">
-	body {
-		background: black;
-	}
-</style>
-<canvas></canvas>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portfolio</title>
+  <style type="text/css">
+    @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+    body {
+      background: black;
+      color: white;
+      font-family: 'Press Start 2P', sans-serif;
+    }
+    #bio {
+      position: absolute;
+      top: 8px;
+      left: 50%;
+      transform: translateX(-50%);
+      text-align: center;
+    }
+    canvas {
+      display: block;
+      margin: 0 auto;
+      background: black;
+    }
+  </style>
+</head>
+<body>
+  <div id="bio">
+    <h1>Hello there! I am Kushagra... </h1>
+    <p>Welcome to my interactive portfolio, hope you have a good time :3</p>
+  </div>
+  <canvas></canvas>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.1/gsap.min.js" integrity="sha512-qF6akR/fsZAB4Co1QDDnUXWnaQseLGXoniuSuSlPQK6+aWhlMZcHzkasCSlnWoe+TJuudlka1/IQ01Dnhgq95g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script src="js/utils.js"></script>
-<script src="js/data/collisions.js"></script>
-<script src="js/classes/Collision.js"></script>
-<script src="js/classes/Sprite.js"></script>
-<script src="js/classes/Player.js"></script>
-<script src="js/event.js"></script>
-<script src="index.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.1/gsap.min.js" integrity="sha512-qF6akR/fsZAB4Co1QDDnUXWnaQseLGXoniuSuSlPQK6+aWhlMZcHzkasCSlnWoe+TJuudlka1/IQ01Dnhgq95g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="js/utils.js"></script>
+  <script src="js/data/collisions.js"></script>
+  <script src="js/classes/Collision.js"></script>
+  <script src="js/classes/Sprite.js"></script>
+  <script src="js/classes/Player.js"></script>
+  <script src="js/event.js"></script>
+  <script src="index.js"></script>
+</body>
+</html>
