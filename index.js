@@ -7,48 +7,16 @@ canvas.height = 64 * 9;
 let parsedCollisions;
 let collisionBlocks;
 let background;
-let doors = [
-  new Sprite({
-    position: {
-      x: 767,
-      y: 270,
-    },
-    imageSrc: './img/doorOpen.png',
-    frameRate: 5,
-    frameBuffer: 5,
-    loop: false,
-    autoplay: false,
-  }),
-];
+let doors;
 
 const player = new Player({
   imageSrc: './img/king/idle.png',
   frameRate: 11,
   animations: {
-    idleRight: {
-      frameRate: 11,
-      frameBuffer: 2,
-      loop: true,
-      imageSrc: './img/king/idle.png',
-    },
-    idleLeft: {
-      frameRate: 11,
-      frameBuffer: 2,
-      loop: true,
-      imageSrc: './img/king/idleLeft.png',
-    },
-    runRight: {
-      frameRate: 8,
-      frameBuffer: 4,
-      loop: true,
-      imageSrc: './img/king/runRight.png',
-    },
-    runLeft: {
-      frameRate: 8,
-      frameBuffer: 4,
-      loop: true,
-      imageSrc: './img/king/runLeft.png',
-    },
+    idleRight: { frameRate: 11, frameBuffer: 2, loop: true, imageSrc: './img/king/idle.png' },
+    idleLeft: { frameRate: 11, frameBuffer: 2, loop: true, imageSrc: './img/king/idleLeft.png' },
+    runRight: { frameRate: 8, frameBuffer: 4, loop: true, imageSrc: './img/king/runRight.png' },
+    runLeft: { frameRate: 8, frameBuffer: 4, loop: true, imageSrc: './img/king/runLeft.png' },
     enterDoor: {
       frameRate: 8,
       frameBuffer: 4,
@@ -59,11 +27,7 @@ const player = new Player({
         gsap.to(overlay, {
           opacity: 1,
           onComplete: () => {
-            level++;
-            if (level === 4) level = 1
-            levels[level].init();
-            player.switchSprite('idleRight')
-            player.preventInput = false
+            player.preventInput = false;
             gsap.to(overlay, {
               opacity: 0,
             });
@@ -73,6 +37,18 @@ const player = new Player({
     },
   },
 });
+
+const pageTexts = {
+  1: '<h1>Hello there! I am Kushagra... </h1><p>Welcome to my interactive portfolio, hope you have a good time :3</p>',
+  2: '<h1>Projects</h1><p>Here are some of my projects...</p>',
+  3: '<h1>Skills and Experience</h1><p>Here are my skills and experiences...</p>',
+  4: '<h1>Contact</h1><p>Contact me at...</p>',
+};
+
+function updateText(level) {
+  const bio = document.getElementById('bio');
+  bio.innerHTML = pageTexts[level];
+}
 
 let level = 1;
 const levels = {
@@ -84,19 +60,29 @@ const levels = {
       if (player.currentAnimation) player.currentAnimation.isActive = false;
 
       background = new Sprite({
-        position: {
-          x: 0,
-          y: 0,
-        },
+        position: { x: 0, y: 0 },
         imageSrc: './img/backgroundLevel1.png',
       });
 
       doors = [
         new Sprite({
-          position: {
-            x: 767,
-            y: 270,
-          },
+          position: { x: 350, y: 270 }, // Projects Door
+          imageSrc: './img/doorOpen.png',
+          frameRate: 5,
+          frameBuffer: 5,
+          loop: false,
+          autoplay: false,
+        }),
+        new Sprite({
+          position: { x: 550, y: 270 }, // Skills Door
+          imageSrc: './img/doorOpen.png',
+          frameRate: 5,
+          frameBuffer: 5,
+          loop: false,
+          autoplay: false,
+        }),
+        new Sprite({
+          position: { x: 750, y: 270 }, // Contact Door
           imageSrc: './img/doorOpen.png',
           frameRate: 5,
           frameBuffer: 5,
@@ -104,6 +90,8 @@ const levels = {
           autoplay: false,
         }),
       ];
+
+      updateText(1); // Update text for home page
     },
   },
   2: {
@@ -117,19 +105,13 @@ const levels = {
       if (player.currentAnimation) player.currentAnimation.isActive = false;
 
       background = new Sprite({
-        position: {
-          x: 0,
-          y: 0,
-        },
+        position: { x: 0, y: 0 },
         imageSrc: './img/backgroundLevel2.png',
       });
 
       doors = [
         new Sprite({
-          position: {
-            x: 772,
-            y: 336,
-          },
+          position: { x: 772, y: 336 },
           imageSrc: './img/doorOpen.png',
           frameRate: 5,
           frameBuffer: 5,
@@ -137,6 +119,8 @@ const levels = {
           autoplay: false,
         }),
       ];
+
+      updateText(2); // Update text for projects page
     },
   },
   3: {
@@ -150,19 +134,13 @@ const levels = {
       if (player.currentAnimation) player.currentAnimation.isActive = false;
 
       background = new Sprite({
-        position: {
-          x: 0,
-          y: 0,
-        },
+        position: { x: 0, y: 0 },
         imageSrc: './img/backgroundLevel3.png',
       });
 
       doors = [
         new Sprite({
-          position: {
-            x: 176,
-            y: 335,
-          },
+          position: { x: 176, y: 335 },
           imageSrc: './img/doorOpen.png',
           frameRate: 5,
           frameBuffer: 5,
@@ -170,40 +148,70 @@ const levels = {
           autoplay: false,
         }),
       ];
+
+      updateText(3); // Update text for skills page
+    },
+  },
+  4: {
+    init: () => {
+      // Create a blank purple page
+      c.fillStyle = 'purple';
+      c.fillRect(0, 0, canvas.width, canvas.height);
+
+      // Update text for contact page
+      updateText(4);
     },
   },
 };
 
 const keys = {
-  w: {
-    pressed: false,
-  },
-  a: {
-    pressed: false,
-  },
-  d: {
-    pressed: false,
-  },
+  w: { pressed: false },
+  a: { pressed: false },
+  d: { pressed: false },
 };
 
-const overlay = {
-  opacity: 0,
-};
+const overlay = { opacity: 0 };
+
+function drawDoorText() {
+  if (level === 1) {
+    // Set default font style for all text
+    c.font = '10px "Press Start 2P"';
+    c.fillStyle = 'White';
+
+    // Text shadow properties (adjust as needed)
+    const shadowXOffset = 1;
+    const shadowYOffset = 1;
+    const shadowBlur = 2;
+    const shadowColor = 'black';
+
+    // Draw "Projects" and "Skills" with stroke effect
+    c.shadowColor = shadowColor;
+    c.shadowOffsetX = shadowXOffset;
+    c.shadowOffsetY = shadowYOffset;
+    c.shadowBlur = shadowBlur;
+    c.fillText('Projects', 360, 260);
+    c.fillText('Skills', 570, 260);
+
+
+    // Apply bold and green styles for "Exit"
+    c.font = 'bold 10px "Press Start 2P"';
+    c.fillStyle = 'green';
+    c.fillText('Exit', 780, 260);
+
+    // Reset shadow properties for normal text rendering
+    c.shadowColor = 'none';
+    c.shadowOffsetX = 0;
+    c.shadowOffsetY = 0;
+    c.shadowBlur = 0;
+
+  }
+}
 
 function animate() {
   window.requestAnimationFrame(animate);
-  // c.fillStyle = 'white';
-  // c.fillRect(0, 0, canvas.width, canvas.height);
-
   background.draw();
- /* collisionBlocks.forEach((collisionBlock) => {
-    collisionBlock.draw();
-  });
-*/
-  doors.forEach((door) => {
-    door.draw();
-  });
-
+  doors.forEach((door) => door.draw());
+  drawDoorText();
   player.handleInput(keys);
   player.draw();
   player.update();
@@ -215,5 +223,7 @@ function animate() {
   c.restore();
 }
 
+// Call init and updateText after defining pageTexts and updateText function
 levels[level].init();
 animate();
+updateText(level);
