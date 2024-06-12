@@ -40,14 +40,12 @@ const player = new Player({
 
 const pageTexts = {
   1: '<h1>Hello there! I am Kushagra... </h1><p>Welcome to my interactive portfolio, hope you have a good time :3</p>',
-  2: '<h1>Projects</h1><p>Here are some of my projects...</p>',
-  3: '<h1>Skills and Experience</h1><p>Here are my skills and experiences...</p>',
-  4: '<h1>Contact</h1><p>Contact me at...</p>',
+  5: '<h1>Secret Level</h1><p>You have found a secret level!</p>',
 };
 
 function updateText(level) {
   const bio = document.getElementById('bio');
-  bio.innerHTML = pageTexts[level];
+  bio.innerHTML = pageTexts[level] || '';
 }
 
 let level = 1;
@@ -57,6 +55,7 @@ const levels = {
       parsedCollisions = collisionsLevel1.parse2D();
       collisionBlocks = parsedCollisions.createObjectsFrom2D();
       player.collisionBlocks = collisionBlocks;
+      player.position = { x: 200, y: 200 }; // Ensure player starts at the correct position
       if (player.currentAnimation) player.currentAnimation.isActive = false;
 
       background = new Sprite({
@@ -66,7 +65,7 @@ const levels = {
 
       doors = [
         new Sprite({
-          position: { x: 350, y: 270 }, // Projects Door
+          position: { x: 350, y: 270 }, // LinkedIn Door
           imageSrc: './img/doorOpen.png',
           frameRate: 5,
           frameBuffer: 5,
@@ -74,7 +73,7 @@ const levels = {
           autoplay: false,
         }),
         new Sprite({
-          position: { x: 550, y: 270 }, // Skills Door
+          position: { x: 550, y: 270 }, // GitHub Door
           imageSrc: './img/doorOpen.png',
           frameRate: 5,
           frameBuffer: 5,
@@ -82,7 +81,7 @@ const levels = {
           autoplay: false,
         }),
         new Sprite({
-          position: { x: 750, y: 270 }, // Contact Door
+          position: { x: 750, y: 270 }, // Behance Door
           imageSrc: './img/doorOpen.png',
           frameRate: 5,
           frameBuffer: 5,
@@ -94,24 +93,39 @@ const levels = {
       updateText(1); // Update text for home page
     },
   },
-  2: {
+  5: { // Secret level
     init: () => {
-      parsedCollisions = collisionsLevel2.parse2D();
+      parsedCollisions = collisionsLevel1.parse2D(); // Reuse level 1 collisions
       collisionBlocks = parsedCollisions.createObjectsFrom2D();
       player.collisionBlocks = collisionBlocks;
-      player.position.x = 96;
-      player.position.y = 140;
+      player.position = { x: 0, y: canvas.height / 2 }; // Start at the left side of the screen
 
       if (player.currentAnimation) player.currentAnimation.isActive = false;
 
       background = new Sprite({
         position: { x: 0, y: 0 },
-        imageSrc: './img/backgroundLevel2.png',
+        imageSrc: './img/backgroundLevel1.png', // Reuse level 1 background
       });
 
       doors = [
         new Sprite({
-          position: { x: 772, y: 336 },
+          position: { x: 350, y: 270 }, // New LinkedIn Door
+          imageSrc: './img/doorOpen.png',
+          frameRate: 5,
+          frameBuffer: 5,
+          loop: false,
+          autoplay: false,
+        }),
+        new Sprite({
+          position: { x: 550, y: 270 }, // New GitHub Door
+          imageSrc: './img/doorOpen.png',
+          frameRate: 5,
+          frameBuffer: 5,
+          loop: false,
+          autoplay: false,
+        }),
+        new Sprite({
+          position: { x: 750, y: 270 }, // New Behance Door
           imageSrc: './img/doorOpen.png',
           frameRate: 5,
           frameBuffer: 5,
@@ -120,46 +134,7 @@ const levels = {
         }),
       ];
 
-      updateText(2); // Update text for projects page
-    },
-  },
-  3: {
-    init: () => {
-      parsedCollisions = collisionsLevel3.parse2D();
-      collisionBlocks = parsedCollisions.createObjectsFrom2D();
-      player.collisionBlocks = collisionBlocks;
-      player.position.x = 750;
-      player.position.y = 230;
-
-      if (player.currentAnimation) player.currentAnimation.isActive = false;
-
-      background = new Sprite({
-        position: { x: 0, y: 0 },
-        imageSrc: './img/backgroundLevel3.png',
-      });
-
-      doors = [
-        new Sprite({
-          position: { x: 176, y: 335 },
-          imageSrc: './img/doorOpen.png',
-          frameRate: 5,
-          frameBuffer: 5,
-          loop: false,
-          autoplay: false,
-        }),
-      ];
-
-      updateText(3); // Update text for skills page
-    },
-  },
-  4: {
-    init: () => {
-      // Create a blank purple page
-      c.fillStyle = 'purple';
-      c.fillRect(0, 0, canvas.width, canvas.height);
-
-      // Update text for contact page
-      updateText(4);
+      updateText(5); // Update text for secret level
     },
   },
 };
@@ -173,10 +148,10 @@ const keys = {
 const overlay = { opacity: 0 };
 
 function drawDoorText() {
-  if (level === 1) {
+  if (level === 1 || level === 5) { // Show text in level 1 and secret level 5
     // Set default font style for all text
     c.font = '10px "Press Start 2P"';
-    c.fillStyle = 'White';
+    c.fillStyle = 'Orange';
 
     // Text shadow properties (adjust as needed)
     const shadowXOffset = 1;
@@ -184,26 +159,20 @@ function drawDoorText() {
     const shadowBlur = 2;
     const shadowColor = 'black';
 
-    // Draw "Projects" and "Skills" with stroke effect
+    // Draw "LinkedIn", "GitHub", "Behance" with stroke effect
     c.shadowColor = shadowColor;
     c.shadowOffsetX = shadowXOffset;
     c.shadowOffsetY = shadowYOffset;
     c.shadowBlur = shadowBlur;
-    c.fillText('Projects', 360, 260);
-    c.fillText('Skills', 570, 260);
-
-
-    // Apply bold and green styles for "Exit"
-    c.font = 'bold 10px "Press Start 2P"';
-    c.fillStyle = 'green';
-    c.fillText('Exit', 780, 260);
+    c.fillText('LinkedIn', 360, 260);
+    c.fillText('GitHub', 570, 260);
+    c.fillText('Behance', 780, 260);
 
     // Reset shadow properties for normal text rendering
     c.shadowColor = 'none';
     c.shadowOffsetX = 0;
     c.shadowOffsetY = 0;
     c.shadowBlur = 0;
-
   }
 }
 
