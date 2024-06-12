@@ -1,6 +1,26 @@
 const actionSequence = [];
 const requiredSequence = ['left', 'left', 'up', 'up'];
 
+function redirectTo(url) {
+  document.getElementById('loadingIndicator').classList.add('visible'); // Show loading indicator
+  document.body.classList.add('fade-out'); // Add fade-out class for transition
+  setTimeout(() => {
+    fetch(url, { method: 'HEAD' })
+    .then(response => {
+      if (response.ok) {
+        window.location.href = url;
+      } else {
+        alert('The requested page is currently unavailable. Please try again later.');
+        document.getElementById('loadingIndicator').classList.remove('visible'); // Hide loading indicator
+      }
+    })
+    .catch(() => {
+      alert('There was an error connecting to the server. Please check your internet connection and try again.');
+      document.getElementById('loadingIndicator').classList.remove('visible'); // Hide loading indicator
+    });
+}, 1000); // Match the transition duration
+}
+
 window.addEventListener('keydown', (event) => {
   if (player.preventInput) return; // Prevent movement during other actions
 
