@@ -119,9 +119,9 @@ function drawDoorText() {
     c.shadowOffsetX = shadowXOffset;
     c.shadowOffsetY = shadowYOffset;
     c.shadowBlur = shadowBlur;
-    c.fillText('LinkedIn', 360, 260);
-    c.fillText('GitHub', 570, 260);
-    c.fillText('Behance', 780, 260);
+    c.fillText('LinkedIn', 358, 260);
+    c.fillText('GitHub', 565, 260);
+    c.fillText('Behance', 762, 260);
 
     // Reset shadow properties for normal text rendering
     c.shadowColor = 'none';
