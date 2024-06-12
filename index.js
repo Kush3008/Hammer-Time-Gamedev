@@ -40,7 +40,6 @@ const player = new Player({
 
 const pageTexts = {
   1: '<h1>Hello there! I am Kushagra... </h1><p>Welcome to my interactive portfolio, hope you have a good time :3</p>',
-  5: '<h1>Secret Level</h1><p>You have found a secret level!</p>',
 };
 
 function updateText(level) {
@@ -93,50 +92,6 @@ const levels = {
       updateText(1); // Update text for home page
     },
   },
-  5: { // Secret level
-    init: () => {
-      parsedCollisions = collisionsLevel1.parse2D(); // Reuse level 1 collisions
-      collisionBlocks = parsedCollisions.createObjectsFrom2D();
-      player.collisionBlocks = collisionBlocks;
-      player.position = { x: 0, y: canvas.height / 2 }; // Start at the left side of the screen
-
-      if (player.currentAnimation) player.currentAnimation.isActive = false;
-
-      background = new Sprite({
-        position: { x: 0, y: 0 },
-        imageSrc: './img/backgroundLevel1.png', // Reuse level 1 background
-      });
-
-      doors = [
-        new Sprite({
-          position: { x: 350, y: 270 }, // New LinkedIn Door
-          imageSrc: './img/doorOpen.png',
-          frameRate: 5,
-          frameBuffer: 5,
-          loop: false,
-          autoplay: false,
-        }),
-        new Sprite({
-          position: { x: 550, y: 270 }, // New GitHub Door
-          imageSrc: './img/doorOpen.png',
-          frameRate: 5,
-          frameBuffer: 5,
-          loop: false,
-          autoplay: false,
-        }),
-        new Sprite({
-          position: { x: 750, y: 270 }, // New Behance Door
-          imageSrc: './img/doorOpen.png',
-          frameRate: 5,
-          frameBuffer: 5,
-          loop: false,
-          autoplay: false,
-        }),
-      ];
-
-      updateText(5); // Update text for secret level
-    },
-  },
 };
 
 const keys = {
@@ -148,7 +103,7 @@ const keys = {
 const overlay = { opacity: 0 };
 
 function drawDoorText() {
-  if (level === 1 || level === 5) { // Show text in level 1 and secret level 5
+  if (level === 1) { // Show text in level 1
     // Set default font style for all text
     c.font = '10px "Press Start 2P"';
     c.fillStyle = 'Orange';
