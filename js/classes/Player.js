@@ -1,24 +1,13 @@
 class Player extends Sprite {
-  constructor({ collisionBlocks = [], imageSrc, frameRate, animations, loop}) {
+  constructor({ collisionBlocks = [], imageSrc, frameRate, animations, loop }) {
     super({ imageSrc, frameRate, animations, loop });
-    this.position = {
-      x: 200,
-      y: 200,
-    };
-
-    this.velocity = {
-      x: 0,
-      y: 0,
-    };
-
-    this.sides = {
-      bottom: this.position.y + this.height,
-    };
-
+    this.position = { x: 200, y: 200 };
+    this.velocity = { x: 0, y: 0 };
+    this.sides = { bottom: this.position.y + this.height };
     this.gravity = 1;
-
     this.collisionBlocks = collisionBlocks;
   }
+
   update() {
     this.position.x += this.velocity.x;
     this.updateHitbox();
@@ -28,35 +17,34 @@ class Player extends Sprite {
     this.checkForVerticalCollisions();
   }
 
-  handleInput(keys){
-      if (this.preventInput) return
-  this.velocity.x = 0;
-  if (keys.d.pressed) {
-    this.switchSprite('runRight');
-    this.velocity.x = 5;
-    this.lastDirection = 'right';
-  } else if (keys.a.pressed) {
-    this.switchSprite('runLeft');
-    this.velocity.x = -5;
-    this.lastDirection = 'left';
-  } else {
-    if (this.lastDirection === 'left') {
-      this.switchSprite('idleLeft');
+  handleInput(keys) {
+    if (this.preventInput) return;
+    this.velocity.x = 0;
+    if (keys.d.pressed) {
+      this.switchSprite('runRight');
+      this.velocity.x = 5;
+      this.lastDirection = 'right';
+    } else if (keys.a.pressed) {
+      this.switchSprite('runLeft');
+      this.velocity.x = -5;
+      this.lastDirection = 'left';
     } else {
-      this.switchSprite('idleRight');
+      if (this.lastDirection === 'left') {
+        this.switchSprite('idleLeft');
+      } else {
+        this.switchSprite('idleRight');
+      }
     }
-  }
   }
 
   switchSprite(name) {
-    if (this.image === this.animations[name].image) return
-    this.currentFrame = 0
-    this.image = this.animations[name].image
-    this.frameRate = this.animations[name].frameRate
-    this.frameBuffer = this.animations[name].frameBuffer
-    this.currentAnimation = this.animations[name]
-    this.loop = this.animations[name].loop
-    this.currentAnimation = this.animations[name]
+    if (this.image === this.animations[name].image) return;
+    this.currentFrame = 0;
+    this.image = this.animations[name].image;
+    this.frameRate = this.animations[name].frameRate;
+    this.frameBuffer = this.animations[name].frameBuffer;
+    this.currentAnimation = this.animations[name];
+    this.loop = this.animations[name].loop;
   }
 
   updateHitbox() {
@@ -80,17 +68,24 @@ class Player extends Sprite {
         this.hitbox.position.y + this.hitbox.height >= collisionBlock.position.y &&
         this.hitbox.position.y <= collisionBlock.position.y + collisionBlock.height
       ) {
-        if (this.velocity.x < -0) {
+        if (this.velocity.x < 0) {
           const offset = this.hitbox.position.x - this.position.x;
           this.position.x = collisionBlock.position.x + collisionBlock.width - offset + 0.01;
           break;
         }
-        if (this.velocity.x > 0) {
+        if (this.velocity.x > 0 && this.position.x < canvas.width - this.width) { // Allow passage on the right
           const offset = this.hitbox.position.x - this.position.x + this.hitbox.width;
           this.position.x = collisionBlock.position.x - offset - 0.01;
           break;
         }
       }
+    }
+
+    // Secret passage logic
+    if (this.position.x + this.width >= canvas.width) {
+      level = 5; // Assuming the secret level is 5
+      levels[level].init();
+      updateText(level);
     }
   }
 
@@ -125,3 +120,6 @@ class Player extends Sprite {
     }
   }
 }
+
+// Export to global scope
+window.Player = Player;
