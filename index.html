@@ -12,7 +12,7 @@
   <!-- <meta property="og:image" content="path/to/image.jpg"> Replace with actual image path -->
   <meta property="og:url" content="https://kush3008.github.io/Hammer-Time-Gamedev/">
   <!-- <meta name="twitter:card" content="summary_large_image"> -->
-  <link rel="icon" href="path/to/favicon.ico"> <!-- Add the favicon link -->
+  <!-- <link rel="icon" href="path/to/favicon.ico"> Add the favicon link -->
   <style type="text/css">
     @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
         /* Add this to your existing CSS in index.html */
@@ -21,6 +21,9 @@
       color: white;
       font-family: 'Press Start 2P', sans-serif;
       transition: background-color 2s; /* Smooth background transition */
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden; 
     }
 
     .canvas-container {
@@ -34,7 +37,7 @@
 
     #bio {
       position: absolute;
-      top: 6px;
+      top: 5%;
       left: 50%;
       transform: translateX(-50%);
       text-align: center;
@@ -50,7 +53,7 @@
     #cheatCode {
       text-align: center;
       margin-top: 10px;
-      font-size: 12px;
+      font-size: 1.5vw;
     }
     #Instructions {
       text-align: center;
@@ -71,6 +74,27 @@
     #loadingIndicator.visible {
       display: block;
     }
+     @media (max-width: 600px) {
+      #bio h1 {
+        font-size: 4vw;
+      }
+      #bio p {
+        font-size: 3vw;
+      }
+      #cheatCode {
+        font-size: 3.5vw;
+      }
+    }
+    @media (min-width: 601px) {
+      #bio h1 {
+        font-size: 2vw;
+      }
+      #bio p {
+        font-size: 1.5vw;
+      }
+      #cheatCode {
+        font-size: 2vw;
+      }
 
   </style>
 </head>
