@@ -96,4 +96,13 @@ window.addEventListener('keydown', (event) => {
   }
 });
 
-window.addEv
+window.addEventListener('keyup', (event) => {
+  switch (event.key) {
+    case 'a':
+      keys.a.pressed = false;
+      break;
+    case 'd':
+      keys.d.pressed = false;
+      break;
+  }
+});
