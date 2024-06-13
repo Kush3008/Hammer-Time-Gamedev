@@ -7,18 +7,18 @@ function redirectTo(url) {
   document.body.classList.add('fade-out'); // Add fade-out class for transition
   setTimeout(() => {
     fetch(url, { method: 'HEAD' })
-    .then(response => {
-      if (response.ok) {
-        window.location.href = url;
-      } else {
-        alert('The requested page is currently unavailable. Please try again later.');
+      .then(response => {
+        if (response.ok) {
+          window.location.href = url;
+        } else {
+          alert('The requested page is currently unavailable. Please try again later.');
+          document.getElementById('loadingIndicator').classList.remove('visible'); // Hide loading indicator
+        }
+      })
+      .catch(() => {
+        alert('There was an error connecting to the server. Please check your internet connection and try again.');
         document.getElementById('loadingIndicator').classList.remove('visible'); // Hide loading indicator
-      }
-    })
-    .catch(() => {
-      alert('There was an error connecting to the server. Please check your internet connection and try again.');
-      document.getElementById('loadingIndicator').classList.remove('visible'); // Hide loading indicator
-    });
+      });
   }, 1000); // Match the transition duration
 }
 
@@ -32,7 +32,7 @@ function addActionToSequence(action) {
 
   // Check if the actionSequence matches the requiredSequence
   if (JSON.stringify(actionSequence) === JSON.stringify(requiredSequence)) {
-    window.location.href = 'https://drive.google.com/file/d/1py7ypsmaevFG1JMuugt57QmmQCeXQtuq/view?usp=sharing'; // Redirect to secret website
+    redirectTo('https://drive.google.com/file/d/1py7ypsmaevFG1JMuugt57QmmQCeXQtuq/view?usp=sharing'); // Redirect to secret website
     actionSequence.length = 0; // Reset sequence after successful activation
   }
 
@@ -88,11 +88,6 @@ window.addEventListener('keydown', (event) => {
       addActionToSequence('right'); // Track 'right' action
       keys.d.pressed = true; // Set key state
       break;
-  }
-
-  // Limit the actionSequence array to the length of the requiredSequence
-  if (actionSequence.length > requiredSequence.length) {
-    actionSequence.shift();
   }
 });
 
