@@ -12,7 +12,6 @@
   <!-- <meta property="og:image" content="path/to/image.jpg"> Replace with actual image path -->
   <meta property="og:url" content="https://kush3008.github.io/Hammer-Time-Gamedev/">
   <!-- <meta name="twitter:card" content="summary_large_image"> -->
-  <!-- <link rel="icon" href="path/to/favicon.ico"> Add the favicon link -->
   <style type="text/css">
     @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
         /* Add this to your existing CSS in index.html */
@@ -21,9 +20,6 @@
       color: white;
       font-family: 'Press Start 2P', sans-serif;
       transition: background-color 2s; /* Smooth background transition */
-      margin: 0;
-      padding: 0;
-      overflow-x: hidden; 
     }
 
     .canvas-container {
@@ -37,7 +33,7 @@
 
     #bio {
       position: absolute;
-      top: 5%;
+      top: 6px;
       left: 50%;
       transform: translateX(-50%);
       text-align: center;
@@ -75,7 +71,6 @@
       display: block;
     }
 
-
   </style>
 </head>
 <body>
@@ -84,8 +79,8 @@
     <p>Welcome to my interactive portfolio, hope you have a good time :3</p>
   </div>
   <canvas role="img" aria-label="Game Canvas"></canvas>
-  <div id="Instructions" role="note">Use W A D to move, W to enter door</div>
-  <div id="cheatCode" role="note">Press cheat code: left(a) right(d) up(w) up(W) for resume</div>
+  <div id="Instructions" role="note">Use W A S D to move</div>
+  <div id="cheatCode" role="note">Press cheat code: left right up up for resume</div>
   <div id="loadingIndicator">Loading...</div>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.1/gsap.min.js" integrity="sha512-qF6akR/fsZAB4Co1QDDnUXWnaQseLGXoniuSuSlPQK6+aWhlMZcHzkasCSlnWoe+TJuudlka1/IQ01Dnhgq95g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
