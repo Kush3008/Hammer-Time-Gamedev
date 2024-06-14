@@ -1,5 +1,5 @@
 const actionSequence = [];
-const requiredSequence = ['left', 'left', 'up', 'up'];
+const requiredSequence = ['left', 'right', 'up', 'up'];
 
 function redirectTo(url) {
   document.getElementById('loadingIndicator').classList.add('visible'); // Show loading indicator
