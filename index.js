@@ -138,65 +138,65 @@ function drawHUD() {
   c.fillText('Sequence: ' + actionSequence.join(', '), 10, 565);
 }
 
-class Particle {
-  constructor(x, y, size, color, velocity) {
-    this.x = x;
-    this.y = y;
-    this.size = size;
-    this.color = color;
-    this.velocity = { x: Math.random() * 1 - 0.5, y: Math.random() * 0.5 - 0.25 }; // Slower velocity range
-  }
+// class Particle {
+//   constructor(x, y, size, color, velocity) {
+//     this.x = x;
+//     this.y = y;
+//     this.size = size;
+//     this.color = color;
+//     this.velocity = { x: Math.random() * 1 - 0.5, y: Math.random() * 0.5 - 0.25 }; // Slower velocity range
+//   }
 
-  draw() {
-    c.fillStyle = this.color;
-    c.beginPath();
-    c.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-    c.fill();
-  }
+//   draw() {
+//     c.fillStyle = this.color;
+//     c.beginPath();
+//     c.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+//     c.fill();
+//   }
 
-  update() {
-    this.x += this.velocity.x;
-    this.y += this.velocity.y;
+//   update() {
+//     this.x += this.velocity.x;
+//     this.y += this.velocity.y;
   
-    // Check for boundary collision (adjust as needed)
-    if (this.x < 0 || this.x > canvas.width) {
-      this.velocity.x *= -1; // Reverse x velocity on collision
-    }
-    if (this.y < 0 || this.y > canvas.height) {
-      this.velocity.y *= -1; // Reverse y velocity on collision
-    }
+//     // Check for boundary collision (adjust as needed)
+//     if (this.x < 0 || this.x > canvas.width) {
+//       this.velocity.x *= -1; // Reverse x velocity on collision
+//     }
+//     if (this.y < 0 || this.y > canvas.height) {
+//       this.velocity.y *= -1; // Reverse y velocity on collision
+//     }
   
-    this.size *= 0.95; // Shrink particle
-  }
-}
+//     this.size *= 0.95; // Shrink particle
+//   }
+// }
 
-const particles = [];
+// const particles = [];
 
-function createParticles(x, y) {
-  for (let i = 0; i < 1; i++) {
-    const offsetX = Math.random() * -1000 + 800; // Random offset within -5 to 5 range (adjust as needed)
-    const offsetY = Math.random() * -1000 + 750; // Random offset within -5 to 5 range (adjust as needed)
-    particles.push(new Particle(x + offsetX, y + offsetY, 5, 'white', { x: Math.random() * 0.5 - 0.25, y: Math.random() * 0.5 - 0.25 }));
-  }
-}
+// function createParticles(x, y) {
+//   for (let i = 0; i < 1; i++) {
+//     const offsetX = Math.random() * -1000 + 800; // Random offset within -5 to 5 range (adjust as needed)
+//     const offsetY = Math.random() * -1000 + 750; // Random offset within -5 to 5 range (adjust as needed)
+//     particles.push(new Particle(x + offsetX, y + offsetY, 5, 'white', { x: Math.random() * 0.5 - 0.25, y: Math.random() * 0.5 - 0.25 }));
+//   }
+// }
 
-function drawParticles() {
-  particles.forEach((particle, index) => {
-    particle.update();
-    particle.draw();
-    if (particle.size < 0.5) {
-      particles.splice(index, 1); // Remove small particles
-    }
-  });
-}
+// function drawParticles() {
+//   particles.forEach((particle, index) => {
+//     particle.update();
+//     particle.draw();
+//     if (particle.size < 0.5) {
+//       particles.splice(index, 1); // Remove small particles
+//     }
+//   });
+// }
 
 function animate() {
   window.requestAnimationFrame(animate);
   background.draw();
   doors.forEach((door) => door.draw());
   drawDoorText();
-  createParticles(player.position.x, player.position.y); // Example: Create 100 particles
-  drawParticles();
+  // createParticles(player.position.x, player.position.y); // Example: Create 100 particles
+  // drawParticles();
   drawHUD();
   player.handleInput(keys);
   player.draw();
