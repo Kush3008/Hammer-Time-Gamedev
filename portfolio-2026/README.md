@@ -1,7 +1,7 @@
-# Portfolio 2026 staging
+# Living Systems Lab — temporary staging
 
-Temporary public staging copy used to verify the production portfolio on GitHub Pages without replacing the historical Hammer Time project.
+Isolated staging copy of Kushagra Agarwal's interaction-first portfolio. This folder is used to exercise the immersive build on GitHub Pages without replacing the historical Hammer Time project.
 
-Live staging: https://kush3008.github.io/Hammer-Time-Gamedev/portfolio-2026/
+Candidate staging URL: https://kush3008.github.io/Hammer-Time-Gamedev/portfolio-2026/
 
-Canonical source/build is maintained separately; this folder is not the source repository.
+The repository-side staging files are committed and verified. This folder is not the canonical source repository or intended final portfolio domain; the final production URL should only be called published after its public render is independently verified.
